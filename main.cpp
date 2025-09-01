@@ -3,6 +3,9 @@
 #include<unistd.h>
 #include "prompt.h"
 #include "ls.h"
+#include "background.h"
+#include "foreground.h"
+#include <readline/readline.h>
 using namespace std;
 
 string home_directory;
@@ -63,9 +66,10 @@ int main(){
     getcwd(curr_dir, 1024);
     home_directory=string(curr_dir);
     while(true){
-        printPrompt(home_directory);
-        string input;
-        getline(cin, input);
+        string prompt=returnPrompt(home_directory);
+        char* ip=readline(prompt.c_str());
+        string input(ip);
+        free(ip);
         vector<vector<string>> commands=parseCommands(input);
         for(auto &c: commands){
             
@@ -83,6 +87,19 @@ int main(){
             }
             else if(c[0]=="ls"){
                 fire_ls(c);
+            }
+            else if(c[c.size()-1]=="&"){
+                c.pop_back();
+                // for(auto s:c){
+                //     cout<< s<<endl;
+                // }
+                run_background(c);
+                cout.flush();
+                // run_background({"ls"});
+            }
+            else{
+                run_foreground(c);
+                cout.flush();
             }
 
         }

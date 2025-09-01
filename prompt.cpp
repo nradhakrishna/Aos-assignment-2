@@ -5,19 +5,21 @@
 using namespace std;
 
 
-void printPrompt(string home_dir){
+string returnPrompt(string home_dir){
     char host_name[1024];
     gethostname(host_name, 1024);
     char cwd[1024];
     getcwd(cwd, 1024);
     const char *user_name=getenv("USER");
-    cout<< string(user_name)<< "@"<< string(host_name)<<":";
+    string ans=string(user_name)+"@"+string(host_name)+":";
+    
     string curr_dir(cwd);
     if(curr_dir==home_dir){
-        cout<<"~";
+        ans+="~";
     }
     else{
-        cout<< curr_dir;
+        ans+=curr_dir;
     }
-    cout<< ">";
+    ans+=">";
+    return ans;
 }

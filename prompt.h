@@ -2,5 +2,5 @@
 #define PROMPT_H
 #include<string>
 using namespace std;
-void printPrompt(string home_dir);
+string returnPrompt(string home_dir);
 #endif
