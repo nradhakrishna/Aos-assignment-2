@@ -44,6 +44,7 @@ void run_background(vector<string> command){
         return;
     } 
     else if(child == 0){
+        setpgid(0, 0);
         char** argList = make_char_pointer_array(command);
         if(execvp(argList[0], argList) < 0){
             perror("execution failed");
@@ -52,6 +53,7 @@ void run_background(vector<string> command){
         }
     } else {
         // waitpid(child, NULL, 0);
+        setpgid(child, child);
         cout << "background process pid " << child << " started" << endl;
 
     }

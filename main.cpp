@@ -6,6 +6,7 @@
 #include "background.h"
 #include "foreground.h"
 #include <readline/readline.h>
+#include "pinfo.h"
 using namespace std;
 
 string home_directory;
@@ -72,7 +73,6 @@ int main(){
         free(ip);
         vector<vector<string>> commands=parseCommands(input);
         for(auto &c: commands){
-            
             if(c.size()==1 and c[0]=="exit"){
                 return 0;
             }
@@ -96,6 +96,17 @@ int main(){
                 run_background(c);
                 cout.flush();
                 // run_background({"ls"});
+            }
+            else if(c[0]=="pinfo"){
+                if(c.size()==1){
+                    pinfo(0);
+                }
+                else if(c.size()==2){
+                    pinfo(stoi(c[1]));
+                }
+                else{
+                    perror("invalid args");
+                }
             }
             else{
                 run_foreground(c);

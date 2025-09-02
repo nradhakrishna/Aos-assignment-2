@@ -6,7 +6,7 @@ CXXFLAGS = -Wall -std=c++17
 TARGET = my_program
 
 # Source files
-SRCS = main.cpp prompt.cpp parser.cpp ls.cpp background.cpp foreground.cpp -lreadline
+SRCS = main.cpp prompt.cpp parser.cpp ls.cpp background.cpp foreground.cpp pinfo.cpp -lreadline
 
 # Object files
 OBJS = $(SRCS:.cpp=.o)
