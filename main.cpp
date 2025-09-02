@@ -7,11 +7,13 @@
 #include "foreground.h"
 #include <readline/readline.h>
 #include "pinfo.h"
+#include "history.h"
+
 using namespace std;
 
 string home_directory;
 string prev_directory;
-
+deque<string> d_h;
 void change_directory(vector<string>& command){
     char cwd[1024];
     getcwd(cwd, 1024);
@@ -63,17 +65,33 @@ void echo(vector<string>& command){
 }
 
 int main(){
+
     char curr_dir[1024];
+
     getcwd(curr_dir, 1024);
+
     home_directory=string(curr_dir);
+
+    read_history(history_file.c_str());
+
+    maintain_history();
+
+    load_history();
+
     while(true){
         string prompt=returnPrompt(home_directory);
         char* ip=readline(prompt.c_str());
         string input(ip);
         free(ip);
+        if(input.empty()==false){
+            add_history(input.c_str());
+            push_to_history(input);
+            maintain_history();
+        }
         vector<vector<string>> commands=parseCommands(input);
         for(auto &c: commands){
             if(c.size()==1 and c[0]=="exit"){
+                write_history(history_file.c_str());
                 return 0;
             }
             else if(c[0]=="cd"){
@@ -108,6 +126,14 @@ int main(){
                     perror("invalid args");
                 }
             }
+            else if(c[0]=="history"){
+                if(c.size()==2){
+                    print_history(stoi(c[1]), d_h);
+                }
+                else{
+                print_history(20, d_h);
+                }
+            }
             else{
                 run_foreground(c);
                 cout.flush();
@@ -116,6 +142,7 @@ int main(){
         }
     }
     
+
 
     
     
