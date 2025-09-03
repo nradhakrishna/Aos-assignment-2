@@ -1,20 +1,20 @@
-echo 9
-echo 10
-echo 11
-echo 12
-echo 13
-echo 14
-echo 15
-echo 16
-echo 17
-echo 18
+./a.out < rando.txt > output.txt
+cat krishna >> output.txt
+cat "krishna" >> output.txt
+cat 3 >> output.txt
+clear
+cat < 3 >> output.txt
+cat < 3 >> output.txt
+exit
+echo "krishna" >> output.txt
+exit
+grep "main" main.cpp > output.txt
+clear
+exit
 history
-ech
-clear
-clear
+history > output.txt
 exit
-exit
-ps
-ps &
+sort output.txt
+sort output.txt > new_output.txt
 clear
 exit

@@ -11,7 +11,8 @@ void maintain_history(){
 
 void print_history(int x, deque<string>& v_h){
     
-    int limit=max(0, min(int(v_h.size()), 10)-x);
+    int limit=max(0, int(v_h.size())-x);
+    limit=max(10, limit);
     int n=v_h.size();
     for(int i=n-1;i>=limit;i--){
         cout<< v_h[i]<< endl;

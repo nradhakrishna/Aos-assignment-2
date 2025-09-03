@@ -1,6 +1,7 @@
 #include<iostream>
 #include "parser.h"
 #include<unistd.h>
+#include<algorithm>
 #include "prompt.h"
 #include "ls.h"
 #include "background.h"
@@ -9,7 +10,7 @@
 #include "pinfo.h"
 #include "history.h"
 #include "search.h"
-
+#include "io_redirection.h"
 using namespace std;
 
 string home_directory;
@@ -91,9 +92,15 @@ int main(){
         }
         vector<vector<string>> commands=parseCommands(input);
         for(auto &c: commands){
+            auto it1=find(c.begin(), c.end(), "<");
+            auto it2=find(c.begin(), c.end(), ">");
+            auto it3=find(c.begin(), c.end(), ">>");
             if(c.size()==1 and c[0]=="exit"){
                 write_history(history_file.c_str());
                 return 0;
+            }
+            else if(it1!=c.end() || it2!=c.end() || it3!=c.end()){
+                handleIOredirection(c);
             }
             else if(c[0]=="cd"){
                 change_directory(c);
