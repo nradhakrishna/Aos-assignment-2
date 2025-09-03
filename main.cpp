@@ -8,6 +8,7 @@
 #include <readline/readline.h>
 #include "pinfo.h"
 #include "history.h"
+#include "search.h"
 
 using namespace std;
 
@@ -133,6 +134,9 @@ int main(){
                 else{
                 print_history(20, d_h);
                 }
+            }
+            else if(c[0]=="search"){
+                handleSearch(c[1]);
             }
             else{
                 run_foreground(c);
