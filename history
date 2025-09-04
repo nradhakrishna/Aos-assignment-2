@@ -1,20 +1,20 @@
-./a.out < rando.txt > output.txt
-cat krishna >> output.txt
-cat "krishna" >> output.txt
-cat 3 >> output.txt
 clear
-cat < 3 >> output.txt
-cat < 3 >> output.txt
 exit
-echo "krishna" >> output.txt
 exit
-grep "main" main.cpp > output.txt
+grep "void" < int.txt
+exit
 clear
 exit
 history
-history > output.txt
-exit
-sort output.txt
-sort output.txt > new_output.txt
+histiry 14
+history 14
+history
+history 3
+history 20
 clear
+exit
+ls
+ls -l
+ls -a > rando.txt
+kill
 exit

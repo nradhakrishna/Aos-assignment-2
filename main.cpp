@@ -16,6 +16,8 @@ using namespace std;
 string home_directory;
 string prev_directory;
 deque<string> d_h;
+
+
 void change_directory(vector<string>& command){
     char cwd[1024];
     getcwd(cwd, 1024);
@@ -79,12 +81,22 @@ int main(){
     maintain_history();
 
     load_history();
+    signal(SIGINT, int_handler);
+    signal(SIGTSTP, stop_handler);
+
 
     while(true){
         string prompt=returnPrompt(home_directory);
         char* ip=readline(prompt.c_str());
+        if(!ip){
+            cout<< "leaving shell"<< endl;
+            return 0;
+        }
+        
         string input(ip);
+
         free(ip);
+        
         if(input.empty()==false){
             add_history(input.c_str());
             push_to_history(input);
@@ -95,12 +107,13 @@ int main(){
             auto it1=find(c.begin(), c.end(), "<");
             auto it2=find(c.begin(), c.end(), ">");
             auto it3=find(c.begin(), c.end(), ">>");
+            auto it4=find(c.begin(), c.end(), "|");
             if(c.size()==1 and c[0]=="exit"){
                 write_history(history_file.c_str());
                 return 0;
             }
-            else if(it1!=c.end() || it2!=c.end() || it3!=c.end()){
-                handleIOredirection(c);
+            else if(it1!=c.end() || it2!=c.end() || it3!=c.end() || it4!=c.end()){
+                handlepipe_or_IO(c);
             }
             else if(c[0]=="cd"){
                 change_directory(c);
@@ -152,9 +165,5 @@ int main(){
 
         }
     }
-    
-
-
-    
     
 }

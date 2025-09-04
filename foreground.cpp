@@ -3,6 +3,20 @@
 #include<unistd.h>
 #include<sys/wait.h>
 // custom strdup
+pid_t fg_pid=-1;
+
+
+void int_handler(int signal){
+    if(fg_pid>0){
+        kill(fg_pid, SIGINT);
+
+    }
+}
+void stop_handler(int signal){
+    if(fg_pid>0){
+        kill(fg_pid, SIGTSTP);
+    }
+}
 char* my_strdup_fg(const string& s){
     int len = s.size() + 1;
     char* dup = new char[len];
@@ -40,6 +54,8 @@ void run_foreground(vector<string> command){
         return;
     } 
     else if(child == 0){
+        signal(SIGINT, SIG_DFL);
+        signal(SIGTSTP, SIG_DFL);
         char** argList = make_char_pointer_array_fg(command);
         if(execvp(argList[0], argList) < 0){
             perror("execution failed");
@@ -47,13 +63,15 @@ void run_foreground(vector<string> command){
             exit(1);
         }
     } else {
+        fg_pid=child;
         
         cout << "foreground process pid " << child << " started" << endl;
         int flag;
-        waitpid(child, &flag, 0);
+        waitpid(child, &flag, WUNTRACED);
         if(WIFEXITED(flag)){
             cout<< "process with pid: "<< child<<", exited with status: "<< WIFEXITED(flag)<< endl;
         }
+        fg_pid=-1;
 
     }
 }

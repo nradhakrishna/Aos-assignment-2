@@ -8,7 +8,7 @@ CXXFLAGS = -Wall -std=c++17
 TARGET = my_program
 
 # Source files
-SRCS = main.cpp prompt.cpp parser.cpp ls.cpp background.cpp foreground.cpp pinfo.cpp history.cpp search.cpp io_redirection.cpp -lreadline
+SRCS = main.cpp prompt.cpp parser.cpp ls.cpp background.cpp foreground.cpp pinfo.cpp history.cpp search.cpp io_redirection.cpp 
 
 # Object files
 OBJS = $(SRCS:.cpp=.o)
@@ -18,7 +18,7 @@ all: $(TARGET)
 
 # Link objects to create executable
 $(TARGET): $(OBJS)
-	$(CXX) $(CXXFLAGS) $(OBJS) -o $(TARGET)
+	$(CXX) $(CXXFLAGS) $(OBJS) -o $(TARGET) -lreadline
 
 # Compile .cpp files to .o
 %.o: %.cpp

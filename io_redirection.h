@@ -6,5 +6,5 @@
 #include<unistd.h>
 #include<fcntl.h>
 using namespace std;
-void handleIOredirection(vector<string> command);
+void handlepipe_or_IO(vector<string> command);
 #endif

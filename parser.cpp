@@ -55,7 +55,6 @@ vector<string> handle_quotes(string command){
         }
     }
     return ans;
-
 }
 
 vector<vector<string>> parseCommands(string &input){
