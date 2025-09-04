@@ -9,8 +9,11 @@ main.cpp:
 ->This is the main program which runs the shell, it checks the input and calls the appropriate function.
 
 ## Compile: make
+The above creates an executable called my_program
+
 ## execute: ./my_program
 
 Exit:
 ->enter "exit" command
+
 ->CTRL+D exits the shell program and returns to the system shell
