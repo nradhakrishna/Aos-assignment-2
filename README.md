@@ -8,8 +8,8 @@
 main.cpp:
 ->This is the main program which runs the shell, it checks the input and calls the appropriate function.
 
-##Compile: make
-##execute: ./my_program
+## Compile: make
+## execute: ./my_program
 
 Exit:
 ->enter "exit" command
